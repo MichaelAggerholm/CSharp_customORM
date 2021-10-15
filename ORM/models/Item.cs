@@ -6,11 +6,11 @@ namespace ORM.models
     {
         const string TABLE_NAME = "items";
 
-        public int ItemId { get; set; }
+        private int ItemId { get; set; }
 
-        public string Name { get; set; } = "";
+        private string Name { get; set; } = "";
 
-        public int Quantity { get; set; }
+        private int Quantity { get; set; }
 
         static Item()
         {

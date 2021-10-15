@@ -5,12 +5,12 @@ using ORM.models;
 
 namespace ORM
 {
-    class Program
+    internal static class Program
     {
         public static void Main(string[] args)
         {
             Database db = new Database();
-            SqlConnection conn = db.connection();
+            SqlConnection conn = Database.connection();
             conn.Open();
             SwitchCase(conn);
         }
@@ -21,7 +21,7 @@ namespace ORM
         const ConsoleKey keyInfo4 = ConsoleKey.D4;
         const ConsoleKey keyInfo5 = ConsoleKey.Escape;
 
-        public static void SwitchCase(SqlConnection conn)
+        private static void SwitchCase(SqlConnection conn)
         {
 
             while (true)
@@ -114,11 +114,11 @@ namespace ORM
                     {
                         Console.Clear();
                         Menu.MenuMethod();
-                        Console.WriteLine("Choose a vaild key!");
+                        Console.WriteLine("Invalid key!");
                         pressed = Console.ReadKey(true).Key;
                     }
                     //ConsoleKey pressed = Console.ReadKey(true).Key;
-                    if (pressed == keyInfo1 || pressed == keyInfo2 || pressed == keyInfo3 || pressed == keyInfo4 || pressed == keyInfo5)
+                    if (pressed is keyInfo1 or keyInfo2 or keyInfo3 or keyInfo4 or keyInfo5)
                         return pressed;
                     Console.Clear();
                 } while (true);

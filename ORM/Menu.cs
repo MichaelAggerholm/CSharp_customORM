@@ -2,7 +2,7 @@
 
 namespace ORM
 {
-    class Menu
+    internal static class Menu
     {
         public static void MenuMethod()
         {

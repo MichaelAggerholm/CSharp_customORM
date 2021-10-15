@@ -14,7 +14,7 @@ namespace ORM.orm
 
         public override string GetSQLValue(Orm orm)
         {
-            return "'"+Getter(orm).ToString()+"'";
+            return "'"+Getter(orm)+"'";
         }
         public override void SetValue(Orm orm, object value)
         {

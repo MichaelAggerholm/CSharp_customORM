@@ -6,10 +6,10 @@ namespace ORM.orm
 {
     public abstract class Orm
     {
-        static Dictionary<string, Dictionary<string, OrmField>> tables = new Dictionary<string, Dictionary<string, OrmField>>();
-        static Dictionary<string, string> primary_Keys = new Dictionary<string, string>();
+        static readonly Dictionary<string, Dictionary<string, OrmField>> tables = new Dictionary<string, Dictionary<string, OrmField>>();
+        static readonly Dictionary<string, string> primary_Keys = new Dictionary<string, string>();
 
-        public static void Int(string table_name, string property_name, Func<Orm, int> getter, Action<Orm, int> setter)
+        protected static void Int(string table_name, string property_name, Func<Orm, int> getter, Action<Orm, int> setter)
         {
             if (tables.ContainsKey(table_name) == false)
                     tables[table_name] = new Dictionary<string, OrmField>();
@@ -20,7 +20,7 @@ namespace ORM.orm
             tables[table_name].Add(property_name, ormMapper);
         }
 
-        public static void String(string table_name, string property_name, Func<Orm, string> getter, Action<Orm, string> setter)
+        protected static void String(string table_name, string property_name, Func<Orm, string> getter, Action<Orm, string> setter)
         {
             if (tables.ContainsKey(table_name) == false)
                 tables[table_name] = new Dictionary<string, OrmField>();
@@ -31,57 +31,25 @@ namespace ORM.orm
             tables[table_name].Add(property_name, ormMapper);
         }
 
-        public static void PrimaryKey(string table_name, string column)
+        protected static void PrimaryKey(string table_name, string column)
         {
             primary_Keys[table_name] = column;
         }
-
-        // public void Select()
-        // {
-        //     string tableName = TableName();
-        //     List<string> cols = new List<string>();
-        //     if (tables.ContainsKey(tableName) == false)
-        //     {
-        //         Console.WriteLine("$Der er ingen (tableName) i denne ORM");
-        //         return;
-        //     }
-        //
-        //     string pk_colum = primary_Keys[tableName];
-        //     string pk_value = tables[tableName][pk_colum].GetSQLValue(this);
-        //
-        //     //Run through all fields that was defined in the child class
-        //     foreach (KeyValuePair<string, OrmField> kv in tables[tableName])
-        //     {
-        //         if (kv.Key == pk_colum)
-        //         {
-        //             //continue;
-        //         }
-        //         var OrmField = kv.Value;
-        //         cols.Add(kv.Key);
-        //     }
-        //     //Join the colums by giving them together with a ,
-        //     string colsString = string.Join(",", cols);
-        //
-        //     // Delete item WHERE itemId = 1
-        //     string sql = $"SELECT {colsString} FROM {tableName} WHERE {pk_colum} = {pk_value}";
-        //     Console.WriteLine(sql);
-        //     Execute(sql);
-        // }
 
         public void Delete()
         {
             string tableName = TableName();
             if (tables.ContainsKey(tableName) == false)
             {
-                Console.WriteLine("$Der er ingen (tableName) i denne ORM");
+                Console.WriteLine("$There are no (tableName) in this ORM");
                 return;
             }
 
-            string pk_colum = primary_Keys[tableName];
-            string pk_value = tables[tableName][pk_colum].GetSQLValue(this);
+            string pk_column = primary_Keys[tableName];
+            string pk_value = tables[tableName][pk_column].GetSQLValue(this);
 
             // Delete item WHERE itemId = 1
-            string sql = $"DELETE FROM {tableName} WHERE {pk_colum} = {pk_value}";
+            string sql = $"DELETE FROM {tableName} WHERE {pk_column} = {pk_value}";
             Console.WriteLine(sql);
             Execute(sql);
         }
@@ -92,17 +60,17 @@ namespace ORM.orm
             List<string> pair = new List<string>();
             if (tables.ContainsKey(tableName) == false)
             {
-                Console.WriteLine("$Der er ingen (tableName) i denne ORM");
+                Console.WriteLine("$There are no (tableName) in this ORM");
                 return;
             }
 
-            string pk_colum = primary_Keys[tableName];
-            string pk_value = tables[tableName][pk_colum].GetSQLValue(this);
+            string pk_column = primary_Keys[tableName];
+            string pk_value = tables[tableName][pk_column].GetSQLValue(this);
 
             //Run through all fields that was defined in the child class
             foreach (KeyValuePair<string, OrmField> kv in tables[tableName])
             {
-                if (kv.Key == pk_colum)
+                if (kv.Key == pk_column)
                 {
                     continue;
                 }
@@ -110,11 +78,10 @@ namespace ORM.orm
                 pair.Add(kv.Key + " = " + OrmField.GetSQLValue(this));
             }
 
-            //Join the colums by giving them together with a ,
+            //Join the columns by giving them together with a ,
             string pairString = string.Join(",", pair);
 
-            // UPDATE item SET quanity=10 name="bord", description="God at spsise ved" WHERE itemId = 1
-            string sql = $"UPDATE {tableName} SET {pairString} WHERE {pk_colum} = {pk_value}";
+            string sql = $"UPDATE {tableName} SET {pairString} WHERE {pk_column} = {pk_value}";
             Console.WriteLine(sql);
             Execute(sql);
         }
@@ -126,17 +93,16 @@ namespace ORM.orm
             List<string> vals = new List<string>();
             if (tables.ContainsKey(tableName) == false)
             {
-                Console.WriteLine("$Der er ingen (tableName) i denne ORM");
+                Console.WriteLine("$There are no (tableName) in this ORM");
                 return;
             }
 
-            string pk_colum = primary_Keys[tableName];
-            string pk_value = tables[tableName][pk_colum].GetSQLValue(this);
+            string pk_column = primary_Keys[tableName];
 
             //Run through all fields that was defined in the child class
             foreach (KeyValuePair<string, OrmField> kv in tables[tableName])
             {
-                if (kv.Key == pk_colum)
+                if (kv.Key == pk_column)
                 {
                     continue;
                 }
@@ -144,7 +110,7 @@ namespace ORM.orm
                 cols.Add(kv.Key);
                 vals.Add(OrmField.GetSQLValue(this));
             }
-            //Join the colums by giving them together with a ,
+            //Join the columns by giving them together with a ,
             string colsString = string.Join(",", cols);
             string valsString = string.Join(",", vals);
             string sql = $"INSERT INTO {tableName} ({colsString}) VALUES ({valsString})";
@@ -154,16 +120,16 @@ namespace ORM.orm
 
         protected abstract string TableName();
 
-        public static SqlConnection openConnection()
+        private static SqlConnection openConnection()
         {
             Database db = new Database();
-            SqlConnection conn = db.connection();
+            SqlConnection conn = Database.connection();
             conn.Open();
 
             return conn;
         }
 
-        public static void Execute(string sql)
+        private static void Execute(string sql)
         {
             var saveConnection = openConnection();
 

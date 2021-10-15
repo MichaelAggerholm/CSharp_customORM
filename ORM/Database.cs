@@ -5,7 +5,7 @@ namespace ORM
 {
     public class Database
     {
-        public SqlConnection connection()
+        public static SqlConnection connection()
         {
             try
             {
