@@ -1,0 +1,8 @@
+C:\Users\Michael Aggerholm\RiderProjects\ORM\ORM\bin\Debug\ORM.exe
+C:\Users\Michael Aggerholm\RiderProjects\ORM\ORM\bin\Debug\ORM.pdb
+C:\Users\Michael Aggerholm\RiderProjects\ORM\ORM\bin\Debug\System.Data.SqlClient.dll
+C:\Users\Michael Aggerholm\RiderProjects\ORM\ORM\bin\Debug\System.Data.SqlClient.xml
+C:\Users\Michael Aggerholm\RiderProjects\ORM\ORM\obj\Debug\ORM.csproj.AssemblyReference.cache
+C:\Users\Michael Aggerholm\RiderProjects\ORM\ORM\obj\Debug\ORM.csproj.CoreCompileInputs.cache
+C:\Users\Michael Aggerholm\RiderProjects\ORM\ORM\obj\Debug\ORM.exe
+C:\Users\Michael Aggerholm\RiderProjects\ORM\ORM\obj\Debug\ORM.pdb
