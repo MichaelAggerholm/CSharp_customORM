@@ -117,22 +117,25 @@ namespace ORM.orm
             Execute(sql);
         }
         
-        // public void Display()
-        // {
-        //     string tableName = TableName();
-        //     if (tables.ContainsKey(tableName) == false)
-        //     {
-        //         Console.WriteLine("$There are no (tableName) in this ORM");
-        //         return;
-        //     }
-        //     //
-        //     // string pk_column = primary_Keys[tableName];
-        //     // string pk_value = tables[tableName][pk_column].GetSQLValue(this);
-        //     
-        //     string sql = $"SELECT * FROM {tableName}";
-        //     // Console.WriteLine(sql);
-        //     Execute(sql);
-        // }
+        public void Display()
+        {
+            string tableName = TableName();
+            if (tables.ContainsKey(tableName) == false)
+            {
+                Console.WriteLine("$There are no (tableName) in this ORM");
+                return;
+            }
+
+            string sql = $"SELECT * FROM {tableName}";
+            // Console.Clear();
+            Console.WriteLine(sql);
+            Execute(sql);
+
+            // Console.Clear();
+            // Console.WriteLine("All products:\n");
+            // Console.WriteLine("{0,-15} {1,-15} {2,-15} {3,-15}", "ID:", "Title:", "Description:", "Quantity:");
+            // Console.WriteLine("{0,-5} {1,-15} {2,-15} {3,-15}", sdr[0], sdr[1], sdr[2], sdr[3]);
+        }
 
         protected abstract string TableName();
 

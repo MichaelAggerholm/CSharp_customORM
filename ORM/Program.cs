@@ -89,17 +89,16 @@ namespace ORM
                         Console.Clear();
                         break;
 
-                    // case key4:
-                    //     Console.Clear();
-                    //     Console.WriteLine("");
-                    //     Console.WriteLine("All products:\n");
-                    //     Console.WriteLine("{0,-15} {1,-15} {2,-15} {3,-15}", "ID:", "Title:", "Description:", "Quantity:");
-                    //     product.Display();
-                    //     Console.WriteLine("");
-                    //     Console.WriteLine("Press foobar to return."); 
-                    //     Console.ReadLine();
-                    //     Console.Clear();
-                    //     break;
+                    case key4:
+                        // Console.Clear();
+                        Console.WriteLine("All products:\n");
+                        // Console.WriteLine("{0,-15} {1,-15} {2,-15} {3,-15}", "ID:", "Title:", "Description:", "Quantity:");
+                        product.Display();
+                        // Console.WriteLine("");
+                        // Console.WriteLine("Press foobar to return."); 
+                        // Console.ReadLine();
+                        // Console.Clear();
+                        break;
 
                     case key5:
                         Environment.Exit(0);
