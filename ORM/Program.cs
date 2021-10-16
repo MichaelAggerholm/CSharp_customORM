@@ -31,24 +31,22 @@ namespace ORM
 
                 ConsoleKey pressedKey = PressedKey(conn);
 
-                Student student = new Student();
+                Product product = new Product();
 
                 switch (pressedKey)
                 {
 
                     case keyInfo1:
                         Console.WriteLine("Press --> Enter <-- without any word to exit");
-                        Console.Write("Enter Student First_Name > ");
-                        student.FirstName = Console.ReadLine();
-                        if (student.FirstName != "")
+                        Console.Write("Enter product First_Name > ");
+                        product.Title = Console.ReadLine();
+                        if (product.Title != "")
                         {
-                            Console.Write("Enter Student Last_Name > ");
-                            student.LastName = Console.ReadLine();
-                            Console.Write("Enter Student Age > ");
-                            student.Age = int.Parse(Console.ReadLine());
-                            Console.Write("Enter Student Class_Id > ");
-                            student.ClassId = int.Parse(Console.ReadLine());
-                            student.Insert();
+                            Console.Write("Enter product Last_Name > ");
+                            product.Description = Console.ReadLine();
+                            Console.Write("Enter product Quantity > ");
+                            product.Quantity = int.Parse(Console.ReadLine());
+                            product.Insert();
                             break;
                         }
                         Console.Clear();
@@ -56,12 +54,12 @@ namespace ORM
 
                     case keyInfo2:
                         Console.WriteLine("Press --> Enter <-- without any word to exit");
-                        Console.Write("Specify what StudentID you want to delete > ");
+                        Console.Write("Specify what productID you want to delete > ");
                         string InputId = Console.ReadLine();
                         if (InputId != "")
                         {
-                            student.Id = int.Parse(InputId);
-                            student.Delete();
+                            product.Id = int.Parse(InputId);
+                            product.Delete();
                             break;
                         }
                         Console.Clear();
@@ -70,19 +68,17 @@ namespace ORM
                     case keyInfo3:
                         Console.WriteLine("Press --> Enter <-- without any word to exit");
                         Console.Write("What ID do you want to update > ");
-                        string UpdateStudent = Console.ReadLine();
-                        if (UpdateStudent != "")
+                        string Updateproduct = Console.ReadLine();
+                        if (Updateproduct != "")
                         {
-                            student.Id = int.Parse(UpdateStudent);
-                            Console.Write("Enter Student First_Name > ");
-                            student.FirstName = Console.ReadLine();
-                            Console.Write("Enter Student Last_Name > ");
-                            student.LastName = Console.ReadLine();
-                            Console.Write("Enter Student Age > ");
-                            student.Age = int.Parse(Console.ReadLine());
-                            Console.Write("Enter Student Class_Id > ");
-                            student.ClassId = int.Parse(Console.ReadLine());
-                            student.Update();
+                            product.Id = int.Parse(Updateproduct);
+                            Console.Write("Enter product First_Name > ");
+                            product.Title = Console.ReadLine();
+                            Console.Write("Enter product Last_Name > ");
+                            product.Description = Console.ReadLine();
+                            Console.Write("Enter product Quantity > ");
+                            product.Quantity = int.Parse(Console.ReadLine());
+                            product.Update();
                             break;
                         }
                         Console.Clear();
@@ -91,9 +87,9 @@ namespace ORM
                     // case keyInfo4:
                     //     Console.Clear();
                     //     Console.WriteLine("");
-                    //     Console.WriteLine("All Students\n");
-                    //     Console.WriteLine("{0,-15} {1,-15} {2,-15} {3,-15} {4,-15}", "StudentID:", "First_Name:", "Last_Name:", "Age:", "Class_ID:");
-                    //     student.Select();
+                    //     Console.WriteLine("All products\n");
+                    //     Console.WriteLine("{0,-15} {1,-15} {2,-15} {3,-15} {4,-15}", "productID:", "First_Name:", "Last_Name:", "Quantity:", "Class_ID:");
+                    //     product.Select();
                     //     break;
 
                     case keyInfo5:
@@ -105,10 +101,10 @@ namespace ORM
             static void MenuSelections()
             {
                 Console.WriteLine("Menu\n" +
-                                  "Press 1 Insert Student.\n" +
-                                  "Press 2 Delete Student.\n" +
-                                  "Press 3 Update Student.\n" +
-                                  "Press 4 ShowAll Students.\n" +
+                                  "Press 1 Insert product.\n" +
+                                  "Press 2 Delete product.\n" +
+                                  "Press 3 Update product.\n" +
+                                  "Press 4 ShowAll products.\n" +
                                   "Press Esc to exit the Program.\n");
             }
 

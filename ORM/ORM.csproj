@@ -45,9 +45,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Database.cs" />
-        <Compile Include="Menu.cs" />
-        <Compile Include="models\Item.cs" />
-        <Compile Include="models\Student.cs" />
+        <Compile Include="models\Product.cs" />
         <Compile Include="orm\Orm.cs" />
         <Compile Include="orm\OrmField.cs" />
         <Compile Include="orm\OrmInt.cs" />
