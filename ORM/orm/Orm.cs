@@ -117,22 +117,22 @@ namespace ORM.orm
             Execute(sql);
         }
         
-        public void Display()
-        {
-            string tableName = TableName();
-            if (tables.ContainsKey(tableName) == false)
-            {
-                Console.WriteLine("$There are no (tableName) in this ORM");
-                return;
-            }
-            //
-            // string pk_column = primary_Keys[tableName];
-            // string pk_value = tables[tableName][pk_column].GetSQLValue(this);
-            
-            string sql = $"SELECT * FROM {tableName}";
-            // Console.WriteLine(sql);
-            Execute(sql);
-        }
+        // public void Display()
+        // {
+        //     string tableName = TableName();
+        //     if (tables.ContainsKey(tableName) == false)
+        //     {
+        //         Console.WriteLine("$There are no (tableName) in this ORM");
+        //         return;
+        //     }
+        //     //
+        //     // string pk_column = primary_Keys[tableName];
+        //     // string pk_value = tables[tableName][pk_column].GetSQLValue(this);
+        //     
+        //     string sql = $"SELECT * FROM {tableName}";
+        //     // Console.WriteLine(sql);
+        //     Execute(sql);
+        // }
 
         protected abstract string TableName();
 
