@@ -27,7 +27,7 @@ namespace ORM
             while (true)
             {
 
-                Menu.MenuMethod();
+                MenuSelections();
 
                 ConsoleKey pressedKey = PressedKey(conn);
 
@@ -96,10 +96,20 @@ namespace ORM
                     //     student.Select();
                     //     break;
 
-                    // case keyInfo5:
-                    //     System.Environment.Exit(0);
-                    //     break;
+                    case keyInfo5:
+                        Environment.Exit(0);
+                        break;
                 }
+            }
+            
+            static void MenuSelections()
+            {
+                Console.WriteLine("Menu\n" +
+                                  "Press 1 Insert Student.\n" +
+                                  "Press 2 Delete Student.\n" +
+                                  "Press 3 Update Student.\n" +
+                                  "Press 4 ShowAll Students.\n" +
+                                  "Press Esc to exit the Program.\n");
             }
 
             static ConsoleKey PressedKey(SqlConnection conn)
@@ -113,11 +123,11 @@ namespace ORM
                     while (!key_Array.Contains(pressed))
                     {
                         Console.Clear();
-                        Menu.MenuMethod();
+                        MenuSelections();
                         Console.WriteLine("Invalid key!");
                         pressed = Console.ReadKey(true).Key;
                     }
-                    //ConsoleKey pressed = Console.ReadKey(true).Key;
+                    
                     if (pressed is keyInfo1 or keyInfo2 or keyInfo3 or keyInfo4 or keyInfo5)
                         return pressed;
                     Console.Clear();
