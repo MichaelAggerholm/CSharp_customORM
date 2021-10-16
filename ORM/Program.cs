@@ -9,109 +9,118 @@ namespace ORM
     {
         public static void Main(string[] args)
         {
-            Database db = new Database();
             SqlConnection conn = Database.connection();
             conn.Open();
-            SwitchCase(conn);
+            programFlow(conn);
         }
+        
+        const ConsoleKey key1 = ConsoleKey.D1;
+        const ConsoleKey key2 = ConsoleKey.D2;
+        const ConsoleKey key3 = ConsoleKey.D3;
+        const ConsoleKey key4 = ConsoleKey.D4;
+        const ConsoleKey key5 = ConsoleKey.Escape;
 
-        const ConsoleKey keyInfo1 = ConsoleKey.D1;
-        const ConsoleKey keyInfo2 = ConsoleKey.D2;
-        const ConsoleKey keyInfo3 = ConsoleKey.D3;
-        const ConsoleKey keyInfo4 = ConsoleKey.D4;
-        const ConsoleKey keyInfo5 = ConsoleKey.Escape;
-
-        private static void SwitchCase(SqlConnection conn)
+        private static void programFlow(SqlConnection conn)
         {
 
             while (true)
             {
 
                 MenuSelections();
-
+                
                 ConsoleKey pressedKey = PressedKey(conn);
-
                 Product product = new Product();
 
                 switch (pressedKey)
                 {
 
-                    case keyInfo1:
-                        Console.WriteLine("Press --> Enter <-- without any word to exit");
-                        Console.Write("Enter product First_Name > ");
+                    case key1:
+                        Console.Write("Product title: ");
                         product.Title = Console.ReadLine();
                         if (product.Title != "")
                         {
-                            Console.Write("Enter product Last_Name > ");
+                            Console.Write("Product description: ");
                             product.Description = Console.ReadLine();
-                            Console.Write("Enter product Quantity > ");
-                            product.Quantity = int.Parse(Console.ReadLine());
-                            product.Insert();
-                            break;
+                            if (product.Description != "")
+                            {
+                                Console.Write("Product Quantity: ");
+                                product.Quantity = 
+                                    int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
+                                product.Insert();
+                            }
                         }
                         Console.Clear();
                         break;
 
-                    case keyInfo2:
-                        Console.WriteLine("Press --> Enter <-- without any word to exit");
-                        Console.Write("Specify what productID you want to delete > ");
-                        string InputId = Console.ReadLine();
-                        if (InputId != "")
+                    case key2:
+                        Console.Write("Product id to update: ");
+                        string updateProductId = Console.ReadLine();
+                        if (updateProductId != "")
                         {
-                            product.Id = int.Parse(InputId);
-                            product.Delete();
-                            break;
-                        }
-                        Console.Clear();
-                        break;
-
-                    case keyInfo3:
-                        Console.WriteLine("Press --> Enter <-- without any word to exit");
-                        Console.Write("What ID do you want to update > ");
-                        string Updateproduct = Console.ReadLine();
-                        if (Updateproduct != "")
-                        {
-                            product.Id = int.Parse(Updateproduct);
-                            Console.Write("Enter product First_Name > ");
+                            product.Id = 
+                                int.Parse(updateProductId ?? throw new InvalidOperationException());
+                            Console.Write("Product title: ");
                             product.Title = Console.ReadLine();
-                            Console.Write("Enter product Last_Name > ");
-                            product.Description = Console.ReadLine();
-                            Console.Write("Enter product Quantity > ");
-                            product.Quantity = int.Parse(Console.ReadLine());
-                            product.Update();
-                            break;
+                            if (product.Title != "")
+                            {
+                                Console.Write("Product description: ");
+                                product.Description = Console.ReadLine();
+                                if (product.Description != "")
+                                {
+                                    Console.Write("Product Quantity: ");
+                                    product.Quantity = 
+                                        int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
+                                    product.Update();
+                                }
+                            }
                         }
                         Console.Clear();
                         break;
 
-                    // case keyInfo4:
-                    //     Console.Clear();
-                    //     Console.WriteLine("");
-                    //     Console.WriteLine("All products\n");
-                    //     Console.WriteLine("{0,-15} {1,-15} {2,-15} {3,-15} {4,-15}", "productID:", "First_Name:", "Last_Name:", "Quantity:", "Class_ID:");
-                    //     product.Select();
-                    //     break;
+                    case key3:
+                        Console.Write("Product id to delete: ");
+                        string deleteProductId = Console.ReadLine();
+                        if (deleteProductId != "")
+                        {
+                            product.Id = 
+                                int.Parse(deleteProductId ?? throw new InvalidOperationException());
+                            product.Delete();
+                        }
+                        Console.Clear();
+                        break;
 
-                    case keyInfo5:
+                    case key4:
+                        Console.Clear();
+                        Console.WriteLine("");
+                        Console.WriteLine("All products:\n");
+                        Console.WriteLine("{0,-15} {1,-15} {2,-15} {3,-15}", "ID:", "Title:", "Description:", "Quantity:");
+                        product.Display();
+                        Console.WriteLine("");
+                        Console.WriteLine("Press foobar to return."); 
+                        Console.ReadLine();
+                        Console.Clear();
+                        break;
+
+                    case key5:
                         Environment.Exit(0);
                         break;
                 }
             }
-            
+
             static void MenuSelections()
             {
                 Console.WriteLine("Menu\n" +
-                                  "Press 1 Insert product.\n" +
-                                  "Press 2 Delete product.\n" +
-                                  "Press 3 Update product.\n" +
-                                  "Press 4 ShowAll products.\n" +
-                                  "Press Esc to exit the Program.\n");
+                                  "1 to insert a product\n" +
+                                  "2 to Update a product\n" +
+                                  "3 to Delete a product\n" +
+                                  "4 to display all products\n" +
+                                  "Esc to exit\n");
             }
 
             static ConsoleKey PressedKey(SqlConnection conn)
             {
 
-                List<ConsoleKey> key_Array = new List<ConsoleKey> { keyInfo1, keyInfo2, keyInfo3, keyInfo4, keyInfo5};
+                List<ConsoleKey> key_Array = new List<ConsoleKey> { key1, key2, key3, key4, key5};
                 ConsoleKey pressed = Console.ReadKey(true).Key;
 
                 do
@@ -124,7 +133,7 @@ namespace ORM
                         pressed = Console.ReadKey(true).Key;
                     }
                     
-                    if (pressed is keyInfo1 or keyInfo2 or keyInfo3 or keyInfo4 or keyInfo5)
+                    if (pressed is key1 or key2 or key3 or key4 or key5)
                         return pressed;
                     Console.Clear();
                 } while (true);

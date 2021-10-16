@@ -36,56 +36,6 @@ namespace ORM.orm
             primary_Keys[table_name] = column;
         }
 
-        public void Delete()
-        {
-            string tableName = TableName();
-            if (tables.ContainsKey(tableName) == false)
-            {
-                Console.WriteLine("$There are no (tableName) in this ORM");
-                return;
-            }
-
-            string pk_column = primary_Keys[tableName];
-            string pk_value = tables[tableName][pk_column].GetSQLValue(this);
-
-            // Delete item WHERE itemId = 1
-            string sql = $"DELETE FROM {tableName} WHERE {pk_column} = {pk_value}";
-            Console.WriteLine(sql);
-            Execute(sql);
-        }
-
-        public void Update()
-        {
-            string tableName = TableName();
-            List<string> pair = new List<string>();
-            if (tables.ContainsKey(tableName) == false)
-            {
-                Console.WriteLine("$There are no (tableName) in this ORM");
-                return;
-            }
-
-            string pk_column = primary_Keys[tableName];
-            string pk_value = tables[tableName][pk_column].GetSQLValue(this);
-
-            //Run through all fields that was defined in the child class
-            foreach (KeyValuePair<string, OrmField> kv in tables[tableName])
-            {
-                if (kv.Key == pk_column)
-                {
-                    continue;
-                }
-                var OrmField = kv.Value;
-                pair.Add(kv.Key + " = " + OrmField.GetSQLValue(this));
-            }
-
-            //Join the columns by giving them together with a ,
-            string pairString = string.Join(",", pair);
-
-            string sql = $"UPDATE {tableName} SET {pairString} WHERE {pk_column} = {pk_value}";
-            Console.WriteLine(sql);
-            Execute(sql);
-        }
-
         public void Insert()
         {
             string tableName = TableName();
@@ -114,7 +64,73 @@ namespace ORM.orm
             string colsString = string.Join(",", cols);
             string valsString = string.Join(",", vals);
             string sql = $"INSERT INTO {tableName} ({colsString}) VALUES ({valsString})";
-            Console.WriteLine(sql);
+            // Console.WriteLine(sql);
+            Execute(sql);
+        }
+        
+        public void Update()
+        {
+            string tableName = TableName();
+            List<string> pair = new List<string>();
+            if (tables.ContainsKey(tableName) == false)
+            {
+                Console.WriteLine("$There are no (tableName) in this ORM");
+                return;
+            }
+
+            string pk_column = primary_Keys[tableName];
+            string pk_value = tables[tableName][pk_column].GetSQLValue(this);
+
+            //Run through all fields that was defined in the child class
+            foreach (KeyValuePair<string, OrmField> kv in tables[tableName])
+            {
+                if (kv.Key == pk_column)
+                {
+                    continue;
+                }
+                var OrmField = kv.Value;
+                pair.Add(kv.Key + " = " + OrmField.GetSQLValue(this));
+            }
+
+            //Join the columns by giving them together with a ,
+            string pairString = string.Join(",", pair);
+
+            string sql = $"UPDATE {tableName} SET {pairString} WHERE {pk_column} = {pk_value}";
+            // Console.WriteLine(sql);
+            Execute(sql);
+        }
+        
+        public void Delete()
+        {
+            string tableName = TableName();
+            if (tables.ContainsKey(tableName) == false)
+            {
+                Console.WriteLine("$There are no (tableName) in this ORM");
+                return;
+            }
+
+            string pk_column = primary_Keys[tableName];
+            string pk_value = tables[tableName][pk_column].GetSQLValue(this);
+            
+            string sql = $"DELETE FROM {tableName} WHERE {pk_column} = {pk_value}";
+            // Console.WriteLine(sql);
+            Execute(sql);
+        }
+        
+        public void Display()
+        {
+            string tableName = TableName();
+            if (tables.ContainsKey(tableName) == false)
+            {
+                Console.WriteLine("$There are no (tableName) in this ORM");
+                return;
+            }
+            //
+            // string pk_column = primary_Keys[tableName];
+            // string pk_value = tables[tableName][pk_column].GetSQLValue(this);
+            
+            string sql = $"SELECT * FROM {tableName}";
+            // Console.WriteLine(sql);
             Execute(sql);
         }
 
